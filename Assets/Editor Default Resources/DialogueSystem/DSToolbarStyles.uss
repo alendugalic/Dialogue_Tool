@@ -1,0 +1,53 @@
+Toolbar
+{
+	background-color: var(--ds-colors-window-dark-gray-1);
+	height: var(--ds-metrics-window-pixels-35);
+}
+TextField
+{
+	padding: var(--ds-metrics-window-pixels-4);
+}
+Button
+{
+	background-color: #252729;
+	border-color: #1D1D1E;
+	max-height: 25px;
+	margin: 4px;
+}
+
+Button:hover
+{
+	background-color: #2B2D2F;
+}
+
+Button:active
+{
+	background-color: #212325;
+	color: #FDD057;
+}
+
+.unity--text-field__label
+{
+	padding: var(--ds-metrics-window-pixels-4);
+}
+TextField:focus > .unity-text-field__lable
+{
+	color: var(--ds-colors-window-yellow);
+}
+.unity-text-field__input
+{
+	background-color: #1D1D1E;
+	border-color: #27272C;
+	border-radius: 4px;
+	max-height: 25px;
+	min-width: 120px;
+	padding-left: 6px;
+}
+.unity-text-field__input:focus
+{
+	color: var(--ds-colors-window-yellow);
+}
+.ds-toolbar__button__selected
+{
+	color: var(--ds-color-window-yellow);
+}

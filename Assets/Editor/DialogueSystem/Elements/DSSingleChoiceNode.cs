@@ -6,8 +6,10 @@ using UnityEditor.Experimental.GraphView;
 
 namespace DS.Elements
 {
+    using Windows;
     using Enumerations;
     using Utilities;
+    using Data.Save;
 
     public class DSSingleChoiceNode : DSNode
     {
@@ -15,11 +17,10 @@ namespace DS.Elements
         {
             base.Draw();
 
-            foreach(string choice in Choices)
+            foreach(DSChoiceSaveData choice in Choices)
             {
-                Port choicePort = this.CreatePort(choice);
-
-                choicePort.portName = choice;
+                Port choicePort = this.CreatePort(choice.Text);
+                choicePort.userData = choice;
 
                 outputContainer.Add(choicePort);
             }
@@ -27,13 +28,17 @@ namespace DS.Elements
             RefreshExpandedState();
         }
 
-        public override void Initialize(Vector2 position)
+        public override void Initialize(string nodeName, DSGraphView dsGraphView, Vector2 position)
         {
-            base.Initialize(position);
+            base.Initialize(nodeName, dsGraphView, position);
 
             DialogueType = DSDialogueType.SingleChoice;
+            DSChoiceSaveData choiceSaveData = new DSChoiceSaveData()
+            {
+                Text = "Next Dialogue"
+            };
 
-            Choices.Add("Next Dialogue");
+            Choices.Add(choiceSaveData);
         }
     }
 }

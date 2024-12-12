@@ -1,8 +1,6 @@
-
-
 .ds-node__extension-container
 {
-	backround-color: #1D1D1E;
+	background-color: #1D1D1E;
 	padding: 8px;
 }
 
@@ -42,7 +40,7 @@
 
 .ds-node__filename-textfield > .unity-text-field__input
 {
-	max-width 1000px;
+	max-width: 1000px;
 }
 
 .ds-node__filename-textfield > .unity-text-field__input:focus
@@ -83,8 +81,8 @@
 
 .ds-node__quote-textfield > .unity-text-field__input:focus
 {
-	background-color #1D1D1E;
-	border-color #27292C;
+	background-color: #1D1D1E;
+	border-color: #27292C;
 }
 
 .ds-node__button
@@ -97,12 +95,12 @@
 
 .ds-node__button:hover
 {
-	backround-color: #2B2D2F;
+	background-color: #2B2D2F;
 }
 
 .ds-node__button:active
 {
-	backround-color: #212325;
+	background-color: #212325;
 	color: #FDD057;
 }
 

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace DS.Managers
 {
+
     public class DSDialogueManager : MonoBehaviour
     {
         public static DSDialogueManager Instance { get; private set; }
