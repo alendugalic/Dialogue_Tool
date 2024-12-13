@@ -8,7 +8,7 @@ namespace DS.Data
     using ScriptObject;
 
     [Serializable]
-    public class DSDialogueChoiceData : MonoBehaviour
+    public class DSDialogueChoiceData 
     {
 
         [field: SerializeField] public string Text { get; set; }

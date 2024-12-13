@@ -223,29 +223,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1940169982}
-  - component: {fileID: 1940169981}
+  - component: {fileID: 1940169983}
   m_Layer: 0
-  m_Name: Manager
+  m_Name: Dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1940169981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940169980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83330a5ab2adff74d99d54104550f0c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueText: {fileID: 0}
-  characterPortrait: {fileID: 0}
-  characterName: {fileID: 0}
 --- !u!4 &1940169982
 Transform:
   m_ObjectHideFlags: 0
@@ -261,6 +246,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1940169983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940169980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff8179742472d34aa6ae80112e04bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueContainer: {fileID: 11400000, guid: 9b0a6bc0f6d318143b7d8c239db22e5d, type: 2}
+  dialogueGroup: {fileID: 11400000, guid: 6016982b1e147c84881acec1a574bc30, type: 2}
+  dialogue: {fileID: 11400000, guid: 1502dd3095eaa574a97de2a2439efc68, type: 2}
+  groupedDialogues: 0
+  startingDialoguesOnly: 0
+  selectedDialogueGroupIndex: 0
+  selectedDialogueIndex: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

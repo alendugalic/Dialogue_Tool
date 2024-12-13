@@ -123,13 +123,15 @@ namespace DS.Utilities
                 node.DialogueType,
                 node.IsStartingNode()
                 );
+
             createdDialogues.Add(node.ID, dialogue);
-            SaveAsset( dialogue );
+            SaveAsset(dialogue);
         }
 
         private static List<DSDialogueChoiceData> ConvertNodeChoicesToDialogueChoices(List<DSChoiceSaveData> nodeChoices)
         {
             List<DSDialogueChoiceData> dialogueChoices = new List<DSDialogueChoiceData>();
+
             foreach(DSChoiceSaveData nodeChoice in nodeChoices)
             {
                 DSDialogueChoiceData choiceData = new DSDialogueChoiceData()
@@ -286,39 +288,28 @@ namespace DS.Utilities
                     "Check that you chose the right file and it is in the folder path mentioned.",
                     "OK"
                     );
+
                 return;
             }
 
             DSEditorWindow.UpdateFileName(graphData.FileName);
+
             LoadGroups(graphData.Groups);
             LoadNodes(graphData.Nodes);
             LoadNodesConnections();
         }
-
-        private static void LoadNodesConnections()
+        private static void LoadGroups(List<DSGroupSaveData> groups)
         {
-            foreach (KeyValuePair<string, DSNode> loadedNode in loadedNodes)
+            foreach (DSGroupSaveData groupData in groups)
             {
-                foreach(Port choicePort in loadedNode.Value.outputContainer.Children())
-                {
-                    DSChoiceSaveData choiceData = (DSChoiceSaveData)choicePort.userData;
-                    if (string.IsNullOrEmpty(choiceData.NodeID))
-                    {
-                        continue;
-                    }
-                    DSNode nextNode = loadedNodes[choiceData.NodeID];
-                    Port nextNodeInputPort = (Port)nextNode.inputContainer.Children().First();
-
-                    Edge edge = choicePort.ConnectTo(nextNodeInputPort);
-                    graphView.AddElement(edge);
-                    loadedNode.Value.RefreshPorts();
-                }
+                DSGroup group = graphView.CreateGroup(groupData.Name, groupData.Position);
+                group.ID = groupData.ID;
+                loadedGroups.Add(group.ID, group);
             }
         }
-
         private static void LoadNodes(List<DSNodeSaveData> nodes)
         {
-            foreach(DSNodeSaveData nodeData in nodes)
+            foreach (DSNodeSaveData nodeData in nodes)
             {
                 List<DSChoiceSaveData> choices = CloneNodeChoices(nodeData.Choices);
                 DSNode node = graphView.CreateNode(nodeData.Name, nodeData.DialogueType, nodeData.Position, false);
@@ -331,7 +322,7 @@ namespace DS.Utilities
                 loadedNodes.Add(node.ID, node);
 
 
-                if(string.IsNullOrEmpty(nodeData.GroupID))
+                if (string.IsNullOrEmpty(nodeData.GroupID))
                 {
                     continue;
                 }
@@ -340,16 +331,34 @@ namespace DS.Utilities
                 group.AddElement(node);
             }
         }
-
-        private static void LoadGroups(List<DSGroupSaveData> groups)
+        private static void LoadNodesConnections()
         {
-            foreach (DSGroupSaveData groupData in groups)
+            foreach (KeyValuePair<string, DSNode> loadedNode in loadedNodes)
             {
-                DSGroup group = graphView.CreateGroup(groupData.Name, groupData.Position);
-                group.ID = groupData.ID;
-                loadedGroups.Add(group.ID, group);
+                foreach(Port choicePort in loadedNode.Value.outputContainer.Children())
+                {
+                    DSChoiceSaveData choiceData = (DSChoiceSaveData) choicePort.userData;
+
+                    if (string.IsNullOrEmpty(choiceData.NodeID))
+                    {
+                        continue;
+                    }
+                    DSNode nextNode = loadedNodes[choiceData.NodeID];
+
+                    Port nextNodeInputPort = (Port) nextNode.inputContainer.Children().First();
+
+                    Edge edge = choicePort.ConnectTo(nextNodeInputPort);
+
+                    graphView.AddElement(edge);
+
+                    loadedNode.Value.RefreshPorts();
+                }
             }
         }
+
+     
+
+      
 
 
         #endregion
@@ -358,8 +367,10 @@ namespace DS.Utilities
         private static void CreateStaticFolders()
         {
             CreateFolder("Assets/Editor/DialogueSystem", "Graphs");
+
             CreateFolder("Assets", "DialogueSystem");
             CreateFolder("Assets/DialogueSystem", "Dialogues");
+
             CreateFolder("Assets/DialogueSystem/Dialogues", graphFileName);
             CreateFolder(containerFolderPath, "Global");
             CreateFolder(containerFolderPath, "Groups");
@@ -368,10 +379,12 @@ namespace DS.Utilities
         #endregion
 
         #region Utility Methods
-        private static T CreateAsset<T>(string path, string assetName) where T : ScriptableObject
+        public static T CreateAsset<T>(string path, string assetName) where T : ScriptableObject
         {
             string fullPath = $"{path}/{assetName}.asset";
+
             T asset = LoadAsset<T>(path, assetName);
+
             if (asset == null)
             {
                 asset = ScriptableObject.CreateInstance<T>();
@@ -381,14 +394,13 @@ namespace DS.Utilities
             return asset;
         }
 
-        private static T LoadAsset<T>(string path, string assetName) where T : ScriptableObject
+        public static T LoadAsset<T>(string path, string assetName) where T : ScriptableObject
         {
             string fullPath = $"{path}/{assetName}.asset";
 
             return AssetDatabase.LoadAssetAtPath<T>(fullPath);
         }
-
-        private static void CreateFolder(string path, string folderName)
+        public static void CreateFolder(string path, string folderName)
         {
             if (AssetDatabase.IsValidFolder($"{path}/{folderName}"))
             {
@@ -396,18 +408,18 @@ namespace DS.Utilities
             }
             AssetDatabase.CreateFolder(path, folderName);
         }
-        private static void RemoveAsset(string path, string assetName)
+        public static void RemoveAsset(string path, string assetName)
         {
             AssetDatabase.DeleteAsset($"{path}/{assetName}.asset");
         }
-        private static void SaveAsset(UnityEngine.Object asset)
+        public static void SaveAsset(UnityEngine.Object asset)
         {
             EditorUtility.SetDirty(asset);
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-        private static void RemoveFolder(string fullPath)
+        public static void RemoveFolder(string fullPath)
         {
             FileUtil.DeleteFileOrDirectory($"{fullPath}.meta");
             FileUtil.DeleteFileOrDirectory($"{fullPath}/");
