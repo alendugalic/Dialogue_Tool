@@ -18,7 +18,7 @@
 
 .ds-node__textfield > .unity-text-field__input
 {
-	background-color: #1D1D1E;
+	background-color: #9D9D1E;
 	border-color: #27272C;
 	border-radius: 4px;
 	max-width: 240px;
