@@ -56,7 +56,6 @@ namespace DS.Utilities
             SaveAsset(dialogueContainer);
         }
 
-
         #endregion
         #region Nodes
         private static void SaveNodes(DSGraphSaveDataSO graphData, DSDialogueContainerSO dialogueContainer)
@@ -81,8 +80,6 @@ namespace DS.Utilities
             UpdateOldUngroupedNodes(ungroupedNodeNames, graphData);
         }
 
-
-
         private static void SaveNodeToGraph(DSNode node, DSGraphSaveDataSO graphData)
         {
             List<DSChoiceSaveData> choices = CloneNodeChoices(node.Choices);
@@ -99,8 +96,6 @@ namespace DS.Utilities
 
             graphData.Nodes.Add(nodeSaveData);
         }
-
-       
 
         private static void SaveNodeToScriptableObject(DSNode node, DSDialogueContainerSO dialogueContainer)
         {
@@ -193,9 +188,6 @@ namespace DS.Utilities
             }
             graphData.OldGroupedNodeNames = new SerializableDictionary<string, List<string>>(currentGroupedNodeNames);
         }
-
-
-
         #endregion
 
         #region Groups
@@ -249,9 +241,6 @@ namespace DS.Utilities
 
             SaveAsset(dialogueGroup);
         }
-
-
-
         #endregion
 
         #region Fetch Methods
@@ -356,13 +345,7 @@ namespace DS.Utilities
             }
         }
 
-     
-
-      
-
-
         #endregion
-
         #region Creation Methods
         private static void CreateStaticFolders()
         {
